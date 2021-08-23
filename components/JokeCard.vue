@@ -1,6 +1,6 @@
 <template>
     <ui-card class="joke-card">
-        <ui-card-content class="joke-card__content">
+        <ui-card-content id="joke-card-content" class="joke-card__content">
             <ui-card-media
                 square
                 class="joke-card__media"
@@ -41,15 +41,27 @@
 
         <ui-card-actions>
             <ui-card-icons>
-                <ui-icon-button :toggle="icon1"></ui-icon-button>
-                <ui-icon-button :toggle="icon2"></ui-icon-button>
-                <ui-icon-button icon="share"></ui-icon-button>
+                <ui-icon-button
+                    icon="content_copy"
+                    @click="copyText()"
+                ></ui-icon-button>
+                <ui-icon-button
+                    icon="download"
+                    @click="downloadMeme()"
+                ></ui-icon-button>
+                <ui-icon-button
+                    icon="share"
+                    @click="shareMeme()"
+                ></ui-icon-button>
             </ui-card-icons>
         </ui-card-actions>
     </ui-card>
 </template>
 
 <script>
+import copy from "copy-to-clipboard";
+import webshot from "@youngmayor/webshot";
+
 export default {
     name: "JokeCard",
 
@@ -62,15 +74,53 @@ export default {
 
     data() {
         return {
-            icon1: {
-                on: "favorite",
-                off: "favorite_border",
-            },
-            icon2: {
-                on: "bookmark",
-                off: "bookmark_border",
-            },
+            //
         };
+    },
+
+    methods: {
+        __getMemeText() {
+            let valid = false;
+            let content = "";
+            if (this.payload.type == "single") {
+                content = this.payload.joke;
+            } else if (this.payload.type == "twopart") {
+                content = `${this.payload.setup} \n${this.payload.delivery}`;
+            }
+
+            if (content.length) {
+                content = `${content} \n\n\nSource: ${window.location.origin}`;
+            } else {
+                content = window.location.href;
+            }
+            return content;
+        },
+
+        copyText() {
+            const content = this.__getMemeText();
+
+            copy(content, {
+                debug: true,
+                message: "Press #{key} to copy",
+                onCopy: () => {
+                    console.log("copied");
+                },
+            });
+        },
+
+        downloadMeme() {
+            return webshot.download(
+                "joke-card-content",
+                `Joke Screenshot: iJokes.jpg`
+            );
+        },
+
+        shareMeme() {
+            return webshot.share("joke-card-content", `iJokes.jpg`, {
+                title: "Check out this amazing joke from iJokes",
+                text: "This is an amazing joke from iJokes, you can get more from https://ijokes.netlify.app",
+            });
+        },
     },
 };
 </script>
