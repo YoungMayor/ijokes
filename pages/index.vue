@@ -89,13 +89,11 @@
 
                 <div
                     class="slide"
-                    xxxid="`joke-slide-${i}`"
-                    v-for="joke in jokes"
-                    :key="joke.id"
+                    :id="`joke-slide-${index}`"
+                    v-for="(joke, index) in jokes"
+                    :key="index"
                 >
                     <JokeCard :payload="joke" />
-                    <!-- <JokeCard v-if="i % 2" :payload="payload.single" />
-                    <JokeCard v-else :payload="payload.twopart" /> -->
                 </div>
             </div>
 
@@ -240,46 +238,18 @@ export default {
             },
 
             categories: [
+                "any",
                 "programming",
-                "political",
-                "nsfw",
-                "racist",
-                "sexist",
+                "miscellaneous",
+                "dark",
+                "pun",
+                "spooky",
+                "christmas",
             ],
 
             jokes: [],
             selectedCategory: null,
             loading: false,
-
-            payload: {
-                twopart: {
-                    category: "Programming",
-                    type: "twopart",
-                    setup: "Example Buildup: Jokes about anti-vaxxer parents never get's old",
-                    delivery: "Example Delivery: Just like their kids",
-                    flags: {
-                        nsfw: true,
-                        religious: true,
-                        political: false,
-                    },
-                    id: Math.random(),
-                    safe: true,
-                    lang: "en",
-                },
-                single: {
-                    category: "Programming",
-                    type: "single",
-                    joke: "Example Joke: I have these weird muscle spasms in my gluteus maximus. \n I figured out from my doctor that everything was alright: \n He said 'Weird flex, butt okay'",
-                    flags: {
-                        nsfw: true,
-                        religious: true,
-                        political: false,
-                    },
-                    id: Math.random(),
-                    safe: true,
-                    lang: "en",
-                },
-            },
         };
     },
 
@@ -292,32 +262,19 @@ export default {
             this.getItems();
         },
 
-        getItems(length = 10) {
+        async getItems(length = 10) {
             this.loading = true;
 
-            setTimeout(() => {
-                for (let index = 0; index < length; index++) {
-                    this.jokes.push({
-                        category: "Programming",
-                        type: "twopart",
-                        setup: "Example Buildup: Jokes about anti-vaxxer parents never get's old",
-                        delivery: "Example Delivery: Just like their kids",
-                        flags: {
-                            nsfw: true,
-                            religious: true,
-                            political: false,
-                        },
-                        id: Math.random() * index + index,
-                        safe: true,
-                        lang: "en",
-                    });
-                }
+            await this.$jokeAPI
+                .getJokes(this.selectedCategory, length)
+                .then((res) => {
+                    this.jokes = [...this.jokes, ...res.data.jokes];
 
-                setTimeout(() => {
-                    this.$refs.fullpage.build();
-                    this.loading = false;
-                }, 1000);
-            }, 1500);
+                    setTimeout(() => {
+                        this.$refs.fullpage.build();
+                        this.loading = false;
+                    }, 1000);
+                });
         },
     },
 

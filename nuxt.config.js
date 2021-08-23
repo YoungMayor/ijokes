@@ -32,6 +32,7 @@ export default {
     plugins: [
         '@/plugins/balm-ui',
         '@/plugins/fullpage',
+        '@/plugins/joke-api',
     ],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
@@ -49,7 +50,9 @@ export default {
     ],
 
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
-    axios: {},
+    axios: {
+        baseURL: 'https://v2.jokeapi.dev/joke',
+    },
 
     // PWA module configuration: https://go.nuxtjs.dev/pwa
     pwa: {

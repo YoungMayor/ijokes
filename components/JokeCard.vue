@@ -10,6 +10,12 @@
             >
                 <ui-card-media-content class="joke-card__media-content">
                     <div class="joke-card__media-content-wrapper">
+                        <ui-divider>
+                            <ui-chip icon="verified_user">
+                                {{ payload.category }}
+                            </ui-chip>
+                        </ui-divider>
+
                         <div
                             v-if="payload.type == 'single'"
                             :class="[$tt('body1'), 'joke__single']"
@@ -29,7 +35,11 @@
 
                         <ui-chips id="input-chip-set" type="action">
                             <template v-for="(show, cat) in payload.flags">
-                                <ui-chip v-if="show" :key="cat" icon="face">
+                                <ui-chip
+                                    v-if="show"
+                                    :key="cat"
+                                    icon="verified_user"
+                                >
                                     {{ String(cat).toUpperCase() }}
                                 </ui-chip>
                             </template>
