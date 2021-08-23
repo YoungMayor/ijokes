@@ -4,10 +4,46 @@
             <div class="section" id="section-welcome">
                 <div class="text-center">
                     <h1 class="app-title ma-0">
-                        iJokes
-                        <img src="/mask-clear.png" alt="Mask" height="72px" />
+                        <span
+                            v-for="(letter, index) in [
+                                'i',
+                                'J',
+                                'o',
+                                'k',
+                                'e',
+                                's',
+                            ]"
+                            :key="letter"
+                            :class="[
+                                $animateCSS(
+                                    index % 2 ? 'bounceInDown' : 'bounceInUp',
+                                    1,
+                                    'slower'
+                                ),
+                            ]"
+                        >
+                            {{ letter }}
+                        </span>
+                        <img
+                            src="/mask-clear.png"
+                            alt="Mask"
+                            height="72px"
+                            :class="[
+                                $animateCSS(
+                                    'heartBeat',
+                                    1,
+                                    'slower',
+                                    'infinite'
+                                ),
+                            ]"
+                        />
                     </h1>
-                    <p class="app-catchphrase">For the love of laughs</p>
+                    <p
+                        class="app-catchphrase"
+                        :class="[$animateCSS('lightSpeedInLeft', 4, 'faster')]"
+                    >
+                        ...for the love of laughs!
+                    </p>
                 </div>
             </div>
 
