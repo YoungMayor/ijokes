@@ -1,6 +1,9 @@
 <template>
     <ui-card class="joke-card">
-        <ui-card-content id="joke-card-content" class="joke-card__content">
+        <ui-card-content
+            :id="`joke-card-content-${payload.id}`"
+            class="joke-card__content"
+        >
             <ui-card-media
                 square
                 class="joke-card__media"
