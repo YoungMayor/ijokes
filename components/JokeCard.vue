@@ -102,9 +102,6 @@ export default {
             copy(content, {
                 debug: true,
                 message: "Press #{key} to copy",
-                onCopy: () => {
-                    console.log("copied");
-                },
             });
         },
 
