@@ -78,7 +78,8 @@ export default {
 <style lang="scss">
 .joke-card {
     width: 90%;
-    margin: 5%;
+    margin: 5% auto;
+    max-width: 450px;
 
     .joke-card__media-content {
         display: flex;
