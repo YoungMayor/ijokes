@@ -11,6 +11,13 @@
                     backgroundImage: `url('https://picsum.photos/600?random=${payload.id}blur=3')`,
                 }"
             >
+                <vue-qr
+                    :text="appURL"
+                    :size="64"
+                    :margin="7"
+                    class="qr-code"
+                ></vue-qr>
+
                 <ui-card-media-content class="joke-card__media-content">
                     <div class="joke-card__media-content-wrapper">
                         <ui-divider>
@@ -50,6 +57,13 @@
                     </div>
                 </ui-card-media-content>
             </ui-card-media>
+
+            <div class="watermark">
+                See more at
+                <a :href="appURL">
+                    {{ appURL }}
+                </a>
+            </div>
         </ui-card-content>
 
         <ui-card-actions>
@@ -74,9 +88,14 @@
 <script>
 import copy from "copy-to-clipboard";
 import webshot from "@youngmayor/webshot";
+import VueQr from "vue-qr";
 
 export default {
     name: "JokeCard",
+
+    components: {
+        VueQr,
+    },
 
     props: {
         payload: {
@@ -87,7 +106,7 @@ export default {
 
     data() {
         return {
-            //
+            appURL: window.location.origin,
         };
     },
 
@@ -152,12 +171,40 @@ export default {
 
         .joke-card__media-content-wrapper {
             padding: 16px;
+            padding-bottom: 20px;
             background-image: linear-gradient(
                 to bottom,
                 rgba(0, 0, 0, 0) 0%,
                 rgba(0, 0, 0, 0.5) 30%
             );
             color: white;
+        }
+    }
+
+    .qr-code {
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        border-radius: 5px;
+    }
+
+    .watermark {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: right;
+        font-size: 12px;
+        background-color: #1abc9b63;
+        font-style: italic;
+        padding: 3px 10px;
+        color: white !important;
+        font-weight: bold;
+        text-decoration: none;
+
+        * {
+            color: white !important;
+            text-decoration: none;
         }
     }
 }

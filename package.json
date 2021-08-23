@@ -17,7 +17,8 @@
     "core-js": "^3.15.1",
     "fullpage.js": "^3.1.2",
     "nuxt": "^2.15.7",
-    "vue-fullpage.js": "^0.1.7"
+    "vue-fullpage.js": "^0.1.7",
+    "vue-qr": "^2.5.0"
   },
   "devDependencies": {
     "sass": "^1.38.0",
