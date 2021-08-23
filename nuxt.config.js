@@ -39,7 +39,9 @@ export default {
     components: true,
 
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-    buildModules: [],
+    buildModules: [
+        '@nuxtjs/google-analytics'
+    ],
 
     // Modules: https://go.nuxtjs.dev/config-modules
     modules: [
@@ -74,6 +76,10 @@ export default {
             short_name: 'iJokes',
             background_color: '#1e1e1ecc'
         }
+    },
+
+    googleAnalytics: {
+        id: process.env.GOOGLE_ANALYTICS_ID,
     },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
