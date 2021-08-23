@@ -120,16 +120,20 @@ export default {
 
         downloadMeme() {
             return webshot.download(
-                "joke-card-content",
+                `joke-card-content-${this.payload.id}`,
                 `Joke Screenshot: iJokes.jpg`
             );
         },
 
         shareMeme() {
-            return webshot.share("joke-card-content", `iJokes.jpg`, {
-                title: "Check out this amazing joke from iJokes",
-                text: "This is an amazing joke from iJokes, you can get more from https://ijokes.netlify.app",
-            });
+            return webshot.share(
+                `joke-card-content-${this.payload.id}`,
+                `iJokes.jpg`,
+                {
+                    title: "Check out this amazing joke from iJokes",
+                    text: "This is an amazing joke from iJokes, you can get more from https://ijokes.netlify.app",
+                }
+            );
         },
     },
 };
