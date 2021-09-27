@@ -66,7 +66,7 @@
             </div>
         </ui-card-content>
 
-        <ui-card-actions>
+        <ui-card-actions v-if="actions">
             <ui-card-icons>
                 <ui-icon-button
                     icon="content_copy"
@@ -101,6 +101,10 @@ export default {
         payload: {
             required: true,
             type: Object,
+        },
+        actions: {
+            type: Boolean,
+            default: true,
         },
     },
 
