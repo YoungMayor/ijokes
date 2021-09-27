@@ -1,5 +1,11 @@
 <template>
-    <JokeCard :payload="joke" :actions="false" />
+    <JokeCard
+        :payload="joke"
+        :actions="false"
+        :style="{
+            margin: '0 !important',
+        }"
+    />
 </template>
 
 <script>
@@ -48,6 +54,3 @@ export default {
     created() {},
 };
 </script>
-
-<style lang="scss">
-</style>
