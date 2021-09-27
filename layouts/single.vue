@@ -39,7 +39,7 @@ export default {
 
 <style>
 .single-page {
-    min-width: 450px;
+    width: 450px;
     display: flex;
     background-color: whitesmoke !important;
 }

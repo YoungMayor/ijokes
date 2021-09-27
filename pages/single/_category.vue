@@ -3,7 +3,8 @@
         :payload="joke"
         :actions="false"
         :style="{
-            margin: '0 !important',
+            margin: '0 auto !important',
+            width: '100%',
         }"
     />
 </template>
