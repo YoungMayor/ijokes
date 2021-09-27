@@ -12,6 +12,8 @@
 export default {
     name: "IndexPage",
 
+    layout: "single",
+
     validate({ params }) {
         const categories = [
             "any",
